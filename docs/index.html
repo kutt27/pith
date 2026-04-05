@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pith - Ultra-lightweight UI Framework</title>
+  <link rel="stylesheet" href="../src/pith.css">
+  <script src="../src/pith.js"></script>
+</head>
+<body>
+  <nav>
+    <strong>Pith</strong>
+    <a href="#" aria-current="page">Home</a>
+    <a href="#components">Components</a>
+    <a href="#docs">Docs</a>
+  </nav>
+
+  <div class="container">
+    <h1 class="text-center mt-lg">Pith</h1>
+    <p class="text-center text-muted">Ultra-lightweight, semantic-first UI framework</p>
+    <p class="text-center mb-lg">Under 14KB total. Zero dependencies. Modern browsers only.</p>
+
+    <div class="flex items-center justify-between mb-lg">
+      <button onclick="Pith.toast('Hello from Pith!', 'success')">Show Toast</button>
+      <button onclick="Pith.openDialog('demoDialog')" data-variant="outline">Open Dialog</button>
+    </div>
+
+    <hr>
+
+    <h2 id="components">Components</h2>
+
+    <h3>Buttons</h3>
+    <div class="flex gap-sm mb-md">
+      <button>Primary</button>
+      <button data-variant="secondary">Secondary</button>
+      <button data-variant="outline">Outline</button>
+      <button data-variant="ghost">Ghost</button>
+      <button data-variant="danger">Danger</button>
+    </div>
+
+    <div class="flex gap-sm mb-lg">
+      <button data-size="sm">Small</button>
+      <button>Default</button>
+      <button data-size="lg">Large</button>
+      <button disabled>Disabled</button>
+    </div>
+
+    <h3>Forms</h3>
+    <form class="mb-lg">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+        <span class="field-hint">This will be displayed publicly</span>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Your message here"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox">
+          I agree to the terms
+        </label>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <h3>Alerts</h3>
+    <div class="alert" data-variant="info">
+      This is an informational message.
+    </div>
+    <div class="alert" data-variant="success">
+      Success! Your changes have been saved.
+    </div>
+    <div class="alert" data-variant="warning">
+      Warning! Please review your input.
+    </div>
+    <div class="alert" data-variant="danger">
+      Error! Something went wrong.
+    </div>
+
+    <h3>Cards</h3>
+    <div class="grid" data-cols="3">
+      <div class="card">
+        <div class="card-header">
+          <h4>Card 1</h4>
+        </div>
+        <p>This is a card with a header and footer.</p>
+        <div class="card-footer">
+          <button data-size="sm">Action</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h4>Card 2</h4>
+        </div>
+        <p>Cards are great for grouping related content.</p>
+        <div class="card-footer">
+          <button data-size="sm">Action</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h4>Card 3</h4>
+        </div>
+        <p>They automatically stack on mobile devices.</p>
+        <div class="card-footer">
+          <button data-size="sm">Action</button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Tabs</h3>
+    <div class="flex gap-sm mb-md">
+      <button data-tab-trigger="tab1" data-tab-group="demo" data-active>Tab 1</button>
+      <button data-tab-trigger="tab2" data-tab-group="demo">Tab 2</button>
+      <button data-tab-trigger="tab3" data-tab-group="demo">Tab 3</button>
+    </div>
+
+    <div data-tab="tab1" data-tab-group="demo" class="card">
+      <p>Content for tab 1. Tabs are great for organizing related information.</p>
+    </div>
+
+    <div data-tab="tab2" data-tab-group="demo" class="card hidden">
+      <p>Content for tab 2. Click the tabs above to switch between them.</p>
+    </div>
+
+    <div data-tab="tab3" data-tab-group="demo" class="card hidden">
+      <p>Content for tab 3. No JavaScript configuration needed.</p>
+    </div>
+
+    <h3 class="mt-lg">Accordion</h3>
+    <details>
+      <summary>What is Pith?</summary>
+      <p>Pith is an ultra-lightweight UI framework that styles native HTML elements directly.</p>
+    </details>
+
+    <details>
+      <summary>Why use Pith?</summary>
+      <p>Pith is small, fast, and easy to use. No complex build tools or dependencies required.</p>
+    </details>
+
+    <details>
+      <summary>How do I get started?</summary>
+      <p>Just include the CSS and JS files in your HTML. Then write normal semantic HTML.</p>
+    </details>
+  </div>
+
+  <dialog id="demoDialog">
+    <h2>Dialog Example</h2>
+    <p>This is a native HTML dialog element styled by Pith.</p>
+    <p>Click outside or press Escape to close.</p>
+    <div class="flex gap-sm justify-between mt-md">
+      <button data-dialog-close data-variant="secondary">Cancel</button>
+      <button data-dialog-close>Confirm</button>
+    </div>
+  </dialog>
+</body>
+</html>
+

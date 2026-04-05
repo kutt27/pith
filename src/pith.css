@@ -1,0 +1,867 @@
+/**
+ * Pith CSS Framework
+ * Ultra-lightweight, semantic-first UI framework
+ * Target: Under 6KB minified and gzipped
+ * 
+ * Philosophy:
+ * - Style native HTML elements directly
+ * - No custom classes required for basic usage
+ * - CSS custom properties for easy theming
+ * - Modern browsers only (no IE support)
+ */
+
+/* ============================================
+   CSS CUSTOM PROPERTIES (THEME VARIABLES)
+   ============================================
+   These variables control the entire look and feel.
+   Override them to customize the framework.
+*/
+:root {
+  /* Color palette - primary colors */
+  --pith-primary: #2563eb;
+  --pith-primary-hover: #1d4ed8;
+  --pith-primary-light: #dbeafe;
+
+  /* Color palette - semantic colors */
+  --pith-success: #16a34a;
+  --pith-warning: #ea580c;
+  --pith-danger: #dc2626;
+  --pith-info: #0891b2;
+
+  /* Neutral colors */
+  --pith-bg: #ffffff;
+  --pith-bg-alt: #f9fafb;
+  --pith-text: #111827;
+  --pith-text-muted: #6b7280;
+  --pith-border: #e5e7eb;
+
+  /* Spacing scale - consistent spacing throughout */
+  --pith-space-xs: 0.25rem;
+  --pith-space-sm: 0.5rem;
+  --pith-space-md: 1rem;
+  --pith-space-lg: 1.5rem;
+  --pith-space-xl: 2rem;
+
+  /* Typography */
+  --pith-font-sans: system-ui, -apple-system, sans-serif;
+  --pith-font-mono: ui-monospace, monospace;
+  --pith-font-size: 16px;
+  --pith-line-height: 1.5;
+
+  /* Border radius */
+  --pith-radius: 0.375rem;
+
+  /* Shadows */
+  --pith-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --pith-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  --pith-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --pith-transition: 150ms ease-in-out;
+}
+
+/* Dark theme support - automatically applied based on user preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pith-bg: #111827;
+    --pith-bg-alt: #1f2937;
+    --pith-text: #f9fafb;
+    --pith-text-muted: #9ca3af;
+    --pith-border: #374151;
+  }
+}
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================
+   Normalize browser defaults and set sensible base styles
+*/
+
+/* Box sizing reset - makes width/height calculations predictable */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margins and set base typography */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Body defaults - sets up the base canvas */
+body {
+  font-family: var(--pith-font-sans);
+  font-size: var(--pith-font-size);
+  line-height: var(--pith-line-height);
+  color: var(--pith-text);
+  background-color: var(--pith-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve media defaults - responsive by default */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Inherit fonts for form controls - ensures consistency */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Prevent text overflow - handles long words gracefully */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================
+   Semantic heading styles with proper hierarchy
+*/
+
+/* Headings - progressively smaller sizes */
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--pith-space-lg);
+}
+
+h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: var(--pith-space-md);
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: var(--pith-space-md);
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: var(--pith-space-sm);
+}
+
+h5 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: var(--pith-space-sm);
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: var(--pith-space-sm);
+}
+
+/* Paragraph spacing */
+p {
+  margin-bottom: var(--pith-space-md);
+}
+
+/* Links - clear interactive states */
+a {
+  color: var(--pith-primary);
+  text-decoration: none;
+  transition: color var(--pith-transition);
+}
+
+a:hover {
+  color: var(--pith-primary-hover);
+  text-decoration: underline;
+}
+
+/* Code and preformatted text */
+code {
+  font-family: var(--pith-font-mono);
+  font-size: 0.875em;
+  background-color: var(--pith-bg-alt);
+  padding: 0.125rem 0.25rem;
+  border-radius: calc(var(--pith-radius) / 2);
+}
+
+pre {
+  font-family: var(--pith-font-mono);
+  font-size: 0.875rem;
+  background-color: var(--pith-bg-alt);
+  padding: var(--pith-space-md);
+  border-radius: var(--pith-radius);
+  overflow-x: auto;
+  margin-bottom: var(--pith-space-md);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Lists - proper spacing and indentation */
+ul,
+ol {
+  margin-bottom: var(--pith-space-md);
+  padding-left: var(--pith-space-xl);
+}
+
+li {
+  margin-bottom: var(--pith-space-xs);
+}
+
+/* Blockquotes - visual distinction for quoted content */
+blockquote {
+  border-left: 4px solid var(--pith-primary);
+  padding-left: var(--pith-space-md);
+  margin: var(--pith-space-lg) 0;
+  color: var(--pith-text-muted);
+  font-style: italic;
+}
+
+/* Horizontal rule - section divider */
+hr {
+  border: none;
+  border-top: 1px solid var(--pith-border);
+  margin: var(--pith-space-xl) 0;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================
+   Native button element styling with variants
+*/
+
+/* Base button styles - applies to all buttons */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pith-space-xs);
+  padding: var(--pith-space-sm) var(--pith-space-md);
+  font-weight: 500;
+  border: 1px solid transparent;
+  border-radius: var(--pith-radius);
+  background-color: var(--pith-primary);
+  color: white;
+  cursor: pointer;
+  transition: all var(--pith-transition);
+  white-space: nowrap;
+}
+
+/* Button hover state - provides visual feedback */
+button:hover {
+  background-color: var(--pith-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--pith-shadow);
+}
+
+/* Button active state - pressed appearance */
+button:active {
+  transform: translateY(0);
+}
+
+/* Button disabled state - indicates non-interactive */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Button focus state - accessibility for keyboard navigation */
+button:focus-visible {
+  outline: 2px solid var(--pith-primary);
+  outline-offset: 2px;
+}
+
+/* Secondary button variant - less prominent */
+button[data-variant="secondary"] {
+  background-color: var(--pith-bg-alt);
+  color: var(--pith-text);
+  border-color: var(--pith-border);
+}
+
+button[data-variant="secondary"]:hover {
+  background-color: var(--pith-border);
+}
+
+/* Outline button variant - minimal style */
+button[data-variant="outline"] {
+  background-color: transparent;
+  color: var(--pith-primary);
+  border-color: var(--pith-primary);
+}
+
+button[data-variant="outline"]:hover {
+  background-color: var(--pith-primary-light);
+}
+
+/* Ghost button variant - text only */
+button[data-variant="ghost"] {
+  background-color: transparent;
+  color: var(--pith-primary);
+}
+
+button[data-variant="ghost"]:hover {
+  background-color: var(--pith-primary-light);
+}
+
+/* Danger button variant - destructive actions */
+button[data-variant="danger"] {
+  background-color: var(--pith-danger);
+}
+
+button[data-variant="danger"]:hover {
+  background-color: #b91c1c;
+}
+
+/* Button sizes */
+button[data-size="sm"] {
+  padding: calc(var(--pith-space-xs) + 1px) var(--pith-space-sm);
+  font-size: 0.875rem;
+}
+
+button[data-size="lg"] {
+  padding: var(--pith-space-md) var(--pith-space-lg);
+  font-size: 1.125rem;
+}
+
+/* Full width button */
+button[data-full] {
+  width: 100%;
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================
+   Input, textarea, select styling
+*/
+
+/* Base input styles - consistent appearance across form controls */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+  width: 100%;
+  padding: var(--pith-space-sm) var(--pith-space-md);
+  border: 1px solid var(--pith-border);
+  border-radius: var(--pith-radius);
+  background-color: var(--pith-bg);
+  color: var(--pith-text);
+  transition: border-color var(--pith-transition), box-shadow var(--pith-transition);
+}
+
+/* Input focus state - clear visual indicator */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--pith-primary);
+  box-shadow: 0 0 0 3px var(--pith-primary-light);
+}
+
+/* Input disabled state */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--pith-bg-alt);
+}
+
+/* Textarea specific - allow vertical resize only */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Checkbox and radio buttons - native styling with enhancements */
+input[type="checkbox"],
+input[type="radio"] {
+  width: 1.125rem;
+  height: 1.125rem;
+  cursor: pointer;
+  accent-color: var(--pith-primary);
+}
+
+/* Label - proper spacing and cursor */
+label {
+  display: inline-block;
+  margin-bottom: var(--pith-space-xs);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Form group - spacing between form fields */
+.form-group {
+  margin-bottom: var(--pith-space-md);
+}
+
+/* Field error state - validation feedback */
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: var(--pith-danger);
+}
+
+input[aria-invalid="true"]:focus,
+textarea[aria-invalid="true"]:focus,
+select[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* Helper text and error messages */
+.field-hint {
+  display: block;
+  margin-top: var(--pith-space-xs);
+  font-size: 0.875rem;
+  color: var(--pith-text-muted);
+}
+
+.field-error {
+  display: block;
+  margin-top: var(--pith-space-xs);
+  font-size: 0.875rem;
+  color: var(--pith-danger);
+}
+
+/* ============================================
+   TABLES
+   ============================================
+   Semantic table styling
+*/
+
+/* Base table styles - clean, readable data presentation */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--pith-space-lg);
+}
+
+/* Table header - distinct from body */
+thead {
+  background-color: var(--pith-bg-alt);
+  border-bottom: 2px solid var(--pith-border);
+}
+
+th {
+  padding: var(--pith-space-sm) var(--pith-space-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--pith-text);
+}
+
+/* Table body cells */
+td {
+  padding: var(--pith-space-sm) var(--pith-space-md);
+  border-bottom: 1px solid var(--pith-border);
+}
+
+/* Striped rows - improves readability */
+tbody tr:nth-child(even) {
+  background-color: var(--pith-bg-alt);
+}
+
+/* Hover state for rows - interactive feedback */
+tbody tr:hover {
+  background-color: var(--pith-primary-light);
+}
+
+/* ============================================
+   CARDS
+   ============================================
+   Container component for grouped content
+*/
+
+/* Card - versatile content container */
+.card {
+  background-color: var(--pith-bg);
+  border: 1px solid var(--pith-border);
+  border-radius: var(--pith-radius);
+  padding: var(--pith-space-lg);
+  margin-bottom: var(--pith-space-md);
+  box-shadow: var(--pith-shadow-sm);
+}
+
+/* Card header - optional title section */
+.card-header {
+  margin-bottom: var(--pith-space-md);
+  padding-bottom: var(--pith-space-md);
+  border-bottom: 1px solid var(--pith-border);
+}
+
+.card-header h1,
+.card-header h2,
+.card-header h3,
+.card-header h4,
+.card-header h5,
+.card-header h6 {
+  margin-bottom: 0;
+}
+
+/* Card footer - optional action section */
+.card-footer {
+  margin-top: var(--pith-space-md);
+  padding-top: var(--pith-space-md);
+  border-top: 1px solid var(--pith-border);
+}
+
+/* ============================================
+   GRID SYSTEM
+   ============================================
+   Flexible layout system using CSS Grid
+*/
+
+/* Container - centers content with max width */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--pith-space-md);
+}
+
+/* Grid - responsive column layout */
+.grid {
+  display: grid;
+  gap: var(--pith-space-md);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Grid with fixed columns */
+.grid[data-cols="2"] {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid[data-cols="3"] {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid[data-cols="4"] {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Responsive grid - stacks on mobile */
+@media (max-width: 768px) {
+
+  .grid[data-cols="2"],
+  .grid[data-cols="3"],
+  .grid[data-cols="4"] {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   DIALOG (MODAL)
+   ============================================
+   Native dialog element styling
+*/
+
+/* Dialog backdrop - semi-transparent overlay */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Dialog container - centered modal */
+dialog {
+  max-width: 500px;
+  border: none;
+  border-radius: var(--pith-radius);
+  padding: var(--pith-space-lg);
+  box-shadow: var(--pith-shadow-lg);
+  background-color: var(--pith-bg);
+  color: var(--pith-text);
+}
+
+/* Dialog when open - smooth entrance */
+dialog[open] {
+  animation: dialog-fade-in 200ms ease-out;
+}
+
+@keyframes dialog-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   ALERTS
+   ============================================
+   Notification and message components
+*/
+
+/* Base alert styles - informational messages */
+.alert {
+  padding: var(--pith-space-md);
+  border-radius: var(--pith-radius);
+  border-left: 4px solid;
+  margin-bottom: var(--pith-space-md);
+  background-color: var(--pith-bg-alt);
+}
+
+/* Alert variants - semantic colors */
+.alert[data-variant="info"] {
+  border-color: var(--pith-info);
+  background-color: rgba(8, 145, 178, 0.1);
+}
+
+.alert[data-variant="success"] {
+  border-color: var(--pith-success);
+  background-color: rgba(22, 163, 74, 0.1);
+}
+
+.alert[data-variant="warning"] {
+  border-color: var(--pith-warning);
+  background-color: rgba(234, 88, 12, 0.1);
+}
+
+.alert[data-variant="danger"] {
+  border-color: var(--pith-danger);
+  background-color: rgba(220, 38, 38, 0.1);
+}
+
+/* ============================================
+   BADGES
+   ============================================
+   Small status indicators
+*/
+
+/* Badge - inline status indicator */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background-color: var(--pith-primary);
+  color: white;
+}
+
+/* Badge variants */
+.badge[data-variant="secondary"] {
+  background-color: var(--pith-text-muted);
+}
+
+.badge[data-variant="success"] {
+  background-color: var(--pith-success);
+}
+
+.badge[data-variant="warning"] {
+  background-color: var(--pith-warning);
+}
+
+.badge[data-variant="danger"] {
+  background-color: var(--pith-danger);
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================
+   Navigation bar component
+*/
+
+/* Nav container - horizontal navigation */
+nav {
+  display: flex;
+  align-items: center;
+  gap: var(--pith-space-md);
+  padding: var(--pith-space-md);
+  background-color: var(--pith-bg);
+  border-bottom: 1px solid var(--pith-border);
+}
+
+/* Nav links - remove default link styling */
+nav a {
+  padding: var(--pith-space-sm) var(--pith-space-md);
+  border-radius: var(--pith-radius);
+  transition: background-color var(--pith-transition);
+}
+
+nav a:hover {
+  background-color: var(--pith-bg-alt);
+  text-decoration: none;
+}
+
+/* Active nav link - current page indicator */
+nav a[aria-current="page"] {
+  background-color: var(--pith-primary-light);
+  color: var(--pith-primary);
+  font-weight: 600;
+}
+
+/* ============================================
+   DETAILS/SUMMARY (ACCORDION)
+   ============================================
+   Native disclosure widget styling
+*/
+
+/* Details container - collapsible content */
+details {
+  border: 1px solid var(--pith-border);
+  border-radius: var(--pith-radius);
+  padding: var(--pith-space-md);
+  margin-bottom: var(--pith-space-sm);
+  background-color: var(--pith-bg);
+}
+
+/* Summary - clickable header */
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--pith-space-sm);
+}
+
+/* Remove default marker */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Custom arrow indicator */
+summary::before {
+  content: '▶';
+  display: inline-block;
+  transition: transform var(--pith-transition);
+  font-size: 0.75rem;
+}
+
+/* Rotate arrow when open */
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* Content spacing when expanded */
+details[open] summary {
+  margin-bottom: var(--pith-space-md);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================
+   Helper classes for common patterns
+*/
+
+/* Spacing utilities */
+.mt-0 {
+  margin-top: 0;
+}
+
+.mt-sm {
+  margin-top: var(--pith-space-sm);
+}
+
+.mt-md {
+  margin-top: var(--pith-space-md);
+}
+
+.mt-lg {
+  margin-top: var(--pith-space-lg);
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mb-sm {
+  margin-bottom: var(--pith-space-sm);
+}
+
+.mb-md {
+  margin-bottom: var(--pith-space-md);
+}
+
+.mb-lg {
+  margin-bottom: var(--pith-space-lg);
+}
+
+/* Text utilities */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-muted {
+  color: var(--pith-text-muted);
+}
+
+.text-small {
+  font-size: 0.875rem;
+}
+
+/* Display utilities */
+.hidden {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-sm {
+  gap: var(--pith-space-sm);
+}
+
+.gap-md {
+  gap: var(--pith-space-md);
+}
